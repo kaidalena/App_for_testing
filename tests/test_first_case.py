@@ -1,8 +1,9 @@
-import basic_checks as checks, http_query
-from tests_handler import generate_uuid_v1
-import deepdiff, json
+from tests import basic_checks as checks
+from controllers import http_query
+import json
 from __init__ import logger
 import time
+from tests.tests_handler import compare
 
 
 def sleep(seconds):
@@ -17,27 +18,10 @@ supported_commands = {
 }
 
 
-def compare_result(pattern, current_result):
-    not_allowed_values = list(["values_changed", "dictionary_item_removed", "type_changes"])
-    diff = deepdiff.DeepDiff(pattern, current_result)
-    comparison_result = json.loads(diff.to_json())
-    result_keys = set(comparison_result.keys())
-    failed_result = set(not_allowed_values).intersection(result_keys)
-
-    ok = False
-    res = {}
-    if failed_result != set() and 'iterable_item_added' in comparison_result.keys():
-        if isinstance(pattern, list) and isinstance(current_result, list):
-            for pat in pattern:
-                for cur in current_result:
-                    ok, res = compare_result(pat, cur)
-    return (failed_result == set()) or ok, comparison_result if res == {} else res
-
-
 def test_second():
     global supported_commands
     try:
-        tests_file_path = './tests_descriptions.json'
+        tests_file_path = 'tests_descriptions.json'
         logger.info(f'---------------------- run test {tests_file_path} ----------------------')
         saved_values = {}
         test_data = {}
@@ -79,7 +63,7 @@ def test_second():
             for scan_area, pattern in query['checks'].items():
                 if pattern is not None:
                     area = str(scan_area).replace('in_', '')
-                    ok, res_comparison = compare_result(pattern, response_data_json[area])
+                    ok, res_comparison = compare(pattern, response_data_json[area])
 
                     assert ok is True, f'A result that does not match the pattern was found.\nResult of comparing the url [{url}] response:\n{res_comparison}'
 
