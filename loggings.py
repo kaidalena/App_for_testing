@@ -19,13 +19,8 @@ def create_log(name = 'test'):
 
 
 loggers = {
-    'app': create_log('app'),
-    'migration': create_log('migration'),
-    'test': create_log('test'),
-    'job': create_log('job')
+    # 'app': create_log('app'),
+    # 'migration': create_log('migration'),
+    # 'job': create_log('job'),
+    'test': create_log('test')
 }
-
-
-def get_loggers():
-    global loggers
-    return loggers
