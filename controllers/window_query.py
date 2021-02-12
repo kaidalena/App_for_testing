@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui
 from design import ui_query
 from models.my_query import MyQuery
 from helper import decorator_function
@@ -77,6 +77,9 @@ class Window_query(QtWidgets.QMainWindow, ui_query.Ui_MainWindow):
             check_data = self.get_checks_data()
             for tab in check_data:
                 self.querys[self.id_current_query].set_checks(area=tab, json_data=check_data[tab])
+
+            item = QtGui.QStandardItem(self.get_url())
+            self.urls_listWidget.addItem(self.get_url())
         except Exception as ex:
             self.show_error_dialog(str(ex))
 

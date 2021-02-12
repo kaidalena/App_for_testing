@@ -345,7 +345,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QListView" name="urls_listView"/>
+       <widget class="QListWidget" name="urls_listWidget"/>
       </item>
       <item>
        <spacer name="verticalSpacer_5">
