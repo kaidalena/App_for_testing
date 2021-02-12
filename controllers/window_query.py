@@ -20,6 +20,7 @@ class Window_query(QtWidgets.QMainWindow, ui_query.Ui_MainWindow):
             self.save_url_pushButton.clicked.connect(self.add_new_url_into_case)
             self.save_case_pushButton.clicked.connect(self.save_case)
             self.start_test_case_pushButton.clicked.connect(self.start_test)
+            self.post_tab.save_url_pushButton.clicked.connect(self.post_save_url)
         except Exception as ex:
             print(ex)
             helper.show_dialog(level='Error', msg=ex)
@@ -42,6 +43,15 @@ class Window_query(QtWidgets.QMainWindow, ui_query.Ui_MainWindow):
             data.append(query.get_query())
         with open('tests_descriptions.json', 'w') as file:
             file.write(json.dumps(data))
+
+    def post_save_url(self):
+        try:
+            self.querys[self.id_current_query] = self.post_tab.add_new_url_into_case()
+            self.urls_listWidget.addItem(self.post_tab.get_url())
+            self.id_current_query += 1
+        except Exception as ex:
+            print(ex)
+            helper.show_dialog(level='Error', msg=ex)
 
     def add_new_url_into_case(self):
         try:
@@ -67,6 +77,7 @@ class Window_query(QtWidgets.QMainWindow, ui_query.Ui_MainWindow):
 
             item = QtGui.QStandardItem(self.get_url())
             self.urls_listWidget.addItem(self.get_url())
+            self.id_current_query += 1
         except Exception as ex:
             print(ex)
             helper.show_dialog(level='Error', msg=ex)

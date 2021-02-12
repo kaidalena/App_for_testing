@@ -10,6 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from models.grid_layout_params import GridLayoutParams
+from models.http_tab import HTTP_Tab
 
 
 class Ui_MainWindow(object):
@@ -65,6 +66,7 @@ class Ui_MainWindow(object):
         self.label_10 = QtWidgets.QLabel(self.get_tab)
         self.label_10.setObjectName("label_10")
         self.verticalLayout.addWidget(self.label_10)
+        # self.checks_tabWidget = QtWidgets.QTabWidget(self.get_tab)
         self.checks_tabWidget = QtWidgets.QTabWidget(self.get_tab)
         self.checks_tabWidget.setObjectName("checks_tabWidget")
         self.checks_body_tab = QtWidgets.QWidget()
@@ -105,12 +107,15 @@ class Ui_MainWindow(object):
         self.horizontalLayout_5.addItem(spacerItem6)
         self.verticalLayout.addLayout(self.horizontalLayout_5)
         self.tabWidget.addTab(self.get_tab, "")
-        self.post_tab = QtWidgets.QWidget()
-        self.post_tab.setEnabled(False)
-        self.post_tab.setObjectName("post_tab")
+        # self.post_tab = QtWidgets.QWidget()
+        # self.post_tab.setEnabled(False)
+        # self.post_tab.setObjectName("post_tab")
+
+        self.post_tab = HTTP_Tab(method='POST')
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.post_tab)
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.tabWidget.addTab(self.post_tab, "")
+
         self.put_tab = QtWidgets.QWidget()
         self.put_tab.setEnabled(False)
         self.put_tab.setObjectName("put_tab")
@@ -181,9 +186,9 @@ class Ui_MainWindow(object):
         # self.label_2.setText(_translate("MainWindow", "Key"))
         # self.label_7.setText(_translate("MainWindow", "Value"))
         self.label_10.setText(_translate("MainWindow", "Checks"))
-        self.checks_tabWidget.setTabText(self.checks_tabWidget.indexOf(self.checks_body_tab), _translate("MainWindow", "Body"))
-        self.checks_tabWidget.setTabText(self.checks_tabWidget.indexOf(self.checks_code_tab), _translate("MainWindow", "Code"))
-        self.checks_tabWidget.setTabText(self.checks_tabWidget.indexOf(self.checks_message_tab), _translate("MainWindow", "Message"))
+        # self.checks_tabWidget.setTabText(self.checks_tabWidget.indexOf(self.checks_body_tab), _translate("MainWindow", "Body"))
+        # self.checks_tabWidget.setTabText(self.checks_tabWidget.indexOf(self.checks_code_tab), _translate("MainWindow", "Code"))
+        # self.checks_tabWidget.setTabText(self.checks_tabWidget.indexOf(self.checks_message_tab), _translate("MainWindow", "Message"))
         self.save_url_pushButton.setText(_translate("MainWindow", "Добавить урл в сценарий"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.get_tab), _translate("MainWindow", "GET"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.post_tab), _translate("MainWindow", "POST"))

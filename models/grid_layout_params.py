@@ -4,12 +4,12 @@ from PyQt5 import QtWidgets, QtGui
 class GridLayoutParams(QtWidgets.QGridLayout):
     def __init__(self, parent=None):
         QtWidgets.QGridLayout.__init__(self, parent)
+        self.parent = parent
         self.params = {
             'keys': [],
             'values': [],
             # 'ch_boxes': [self.pp_1_checkBox]
         }
-        self.parent = parent
 
         self.label_key = QtWidgets.QLabel(self.parent)
         self.label_key.setText('Key')
