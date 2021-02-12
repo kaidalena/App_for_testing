@@ -4,6 +4,8 @@ import json
 from __init__ import logger
 import time
 from tests.tests_handler import compare
+from models.errors import MyValueError
+from helper import show_dialog
 
 
 def sleep(seconds):
@@ -45,8 +47,8 @@ def test_second():
                 for name_header in query['custom_headers']['saved_before']:
                     query['custom_headers']['headers'][name_header] = saved_values[name_header]
 
-            print(f"params: {query['params']}")
-            print(f"custom_headers: {query['custom_headers']}")
+            # print(f"params: {query['params']}")
+            # print(f"custom_headers: {query['custom_headers']}")
 
             url = str(query['url']).format(**query['params']['path'])
             response = http_query.http_query_by_type[str(query['method']).lower()](
@@ -61,7 +63,7 @@ def test_second():
             response_data_json = response.json()
             checks.check_structure_successful_response(response=response_data_json)
             for scan_area, pattern in query['checks'].items():
-                if pattern is not None:
+                if pattern is not None and pattern != {} and pattern != []:
                     area = str(scan_area).replace('in_', '')
                     ok, res_comparison = compare(pattern, response_data_json[area])
 
@@ -69,8 +71,9 @@ def test_second():
 
             for param_for_save in query['saves_from_body']:
                 saved_values[param_for_save] = response_data_json['body'][param_for_save]
+        # show_dialog()
+        return True
     except AssertionError as ex:
         logger.error(ex)
         print(f'[Error]{ex}')
-
-test_second()
+        raise MyValueError(f'Тест не пройден: {ex}')

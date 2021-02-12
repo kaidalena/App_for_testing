@@ -40,13 +40,13 @@ def decorator_http_query(func):
     kwargs['url'] = f"{base_url}{kwargs['url']}"
     logger.info('{type_query}: {url}\t\tparams: {params}\t\tjson={json}\t\theaders: {headers}'.format(
       type_query=func.__name__.upper(),
-      url=f"{base_url}{kwargs['url']}",
+      url=f"{kwargs['url']}",
       params=kwargs['query_params'] if 'query_params' in kwargs else None,
       json=kwargs['json_data'] if 'json_data' in kwargs else None,
       headers=kwargs['headers'] if 'headers' in kwargs else None)
     )
     response = func(*args, **kwargs)
-    logger.info('Response: {resp}'.format(resp=response.json))
+    logger.info('Response: {resp}'.format(resp=response.json()))
     return response
   wrapper.__name__ = func.__name__
   return wrapper

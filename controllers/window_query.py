@@ -1,7 +1,9 @@
 from PyQt5 import QtWidgets, QtGui
 from design import ui_query
 from models.my_query import MyQuery
-from helper import decorator_function
+from models.errors import MyValueError
+import helper
+from tests.test_first_case import test_second
 import json
 
 
@@ -17,9 +19,10 @@ class Window_query(QtWidgets.QMainWindow, ui_query.Ui_MainWindow):
             self.init_arrays()
             self.save_url_pushButton.clicked.connect(self.add_new_url_into_case)
             self.save_case_pushButton.clicked.connect(self.save_case)
-            # self.pp_add_btn.clicked.connect(self.add_fields_path_params)
+            self.start_test_case_pushButton.clicked.connect(self.start_test)
         except Exception as ex:
-            print(f'ffff {ex}')
+            print(ex)
+            helper.show_dialog(level='Error', msg=ex)
 
     def init_arrays(self):
         self.check_tabs = {
@@ -37,7 +40,7 @@ class Window_query(QtWidgets.QMainWindow, ui_query.Ui_MainWindow):
         data = []
         for query in self.querys:
             data.append(query.get_query())
-        with open('out_data.json', 'w') as file:
+        with open('tests_descriptions.json', 'w') as file:
             file.write(json.dumps(data))
 
     def add_new_url_into_case(self):
@@ -65,7 +68,8 @@ class Window_query(QtWidgets.QMainWindow, ui_query.Ui_MainWindow):
             item = QtGui.QStandardItem(self.get_url())
             self.urls_listWidget.addItem(self.get_url())
         except Exception as ex:
-            self.show_error_dialog(str(ex))
+            print(ex)
+            helper.show_dialog(level='Error', msg=ex)
 
     def get_custom_params(self, param_obj):
         # print(param_obj)
@@ -100,16 +104,11 @@ class Window_query(QtWidgets.QMainWindow, ui_query.Ui_MainWindow):
         except Exception as ex:
             print(f'f4rom get_checks_data {ex}')
 
-    def show_error_dialog(self, msg='Error'):
-        error_dialog = QtWidgets.QMessageBox()
-        # error_dialog.setGeometry(aw=200)
-        error_dialog.setIcon(QtWidgets.QMessageBox.Critical)
-        error_dialog.setText("Error")
-        error_dialog.setInformativeText(msg)
-        error_dialog.setWindowTitle("Error")
-        error_dialog.exec_()
-
-
-class MyValueError(Exception):
-    def __init__(self, msg):
-        self.text = msg
+    # @helper.decorator_function
+    def start_test(self):
+        try:
+            if test_second():
+                helper.show_dialog(level='Info', msg='Тест пройден успешно')
+        except Exception as ex:
+            print(ex)
+            helper.show_dialog(level='Error', msg=str(ex))
