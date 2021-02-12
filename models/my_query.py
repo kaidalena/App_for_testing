@@ -4,12 +4,15 @@ import json
 class MyQuery():
     def __init__(self):
         self.query_obj = {
-            "url": None,
-            "method": None,
+            "url": '',
+            "method": '',
             "params": {
                 "query": {},
                 "path": {},
-                "saved_before": {}
+                "saved_before": {
+                    "path": [],
+                    "query": []
+                }
             },
             "custom_headers": {
                 "saved_before": [],
@@ -18,7 +21,9 @@ class MyQuery():
             "request_body_json": {},
             "commands_before_running": {},
             "checks": {
-                "in_body": {}
+                "in_body": {},
+                "in_code": {},
+                "in_message": {}
             },
             "saves_from_body": []
         }
@@ -54,8 +59,9 @@ class MyQuery():
         self.query_obj['request_body_json'] = json.dumps(json_data)
 
     def set_checks(self, area='body', json_data={}):
-        type = f'in_{area}'
-        self.query_obj['checks'][type] = json.dumps(json_data)
+        print(f'{json_data}     {type(json_data)}')
+        in_area = f'in_{area}'
+        self.query_obj['checks'][in_area] = json_data
 
     def add_params_save_from_response(self, params_to_save=[]):
         self.query_obj['saves_from_body'] += params_to_save
