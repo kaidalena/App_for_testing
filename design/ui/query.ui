@@ -58,25 +58,22 @@
            <string>Path params</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_3">
+           <item row="0" column="2">
+            <widget class="QLabel" name="label_16">
+             <property name="text">
+              <string>Use a saved</string>
+             </property>
+            </widget>
+           </item>
            <item row="1" column="0">
-            <widget class="QLineEdit" name="lineEdit"/>
+            <widget class="QLineEdit" name="pp_key_1_lineEdit"/>
            </item>
            <item row="1" column="2">
-            <widget class="QCheckBox" name="checkBox_9">
+            <widget class="QCheckBox" name="pp_1_checkBox">
              <property name="text">
               <string/>
              </property>
             </widget>
-           </item>
-           <item row="1" column="3">
-            <widget class="QCheckBox" name="checkBox_10">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLineEdit" name="lineEdit_6"/>
            </item>
            <item row="0" column="0">
             <widget class="QLabel" name="label_13">
@@ -85,24 +82,13 @@
              </property>
             </widget>
            </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="pp_val_1_lineEdit"/>
+           </item>
            <item row="0" column="1">
             <widget class="QLabel" name="label_14">
              <property name="text">
               <string>Value</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QLabel" name="label_15">
-             <property name="text">
-              <string>Save</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="3">
-            <widget class="QLabel" name="label_16">
-             <property name="text">
-              <string>Use a saved</string>
              </property>
             </widget>
            </item>
@@ -128,57 +114,23 @@
            <string>Query params</string>
           </property>
           <layout class="QGridLayout" name="gridLayout">
-           <item row="1" column="3">
-            <widget class="QCheckBox" name="checkBox_2">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
+           <item row="1" column="0">
+            <widget class="QLineEdit" name="qp_key_1_lineEdit"/>
            </item>
            <item row="1" column="2">
-            <widget class="QCheckBox" name="checkBox">
+            <widget class="QCheckBox" name="qp_1_checkBox">
              <property name="text">
               <string/>
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QLineEdit" name="lineEdit_2"/>
-           </item>
            <item row="1" column="1">
-            <widget class="QLineEdit" name="lineEdit_3"/>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLineEdit" name="lineEdit_4"/>
-           </item>
-           <item row="3" column="1">
-            <widget class="QLineEdit" name="lineEdit_5"/>
-           </item>
-           <item row="0" column="2">
-            <widget class="QLabel" name="label_5">
-             <property name="text">
-              <string>Save</string>
-             </property>
-            </widget>
+            <widget class="QLineEdit" name="qp_val_1_lineEdit"/>
            </item>
            <item row="0" column="1">
             <widget class="QLabel" name="label_4">
              <property name="text">
               <string>Value</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="2">
-            <widget class="QCheckBox" name="checkBox_4">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="3">
-            <widget class="QCheckBox" name="checkBox_3">
-             <property name="text">
-              <string/>
              </property>
             </widget>
            </item>
@@ -189,7 +141,7 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="3">
+           <item row="0" column="2">
             <widget class="QLabel" name="label_6">
              <property name="text">
               <string>Use a saved</string>
@@ -218,12 +170,15 @@
            <string>Headers</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_2">
-           <item row="0" column="3">
+           <item row="0" column="2">
             <widget class="QLabel" name="label_9">
              <property name="text">
               <string>Use a saved</string>
              </property>
             </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLineEdit" name="h_key_1_lineEdit"/>
            </item>
            <item row="0" column="0">
             <widget class="QLabel" name="label_2">
@@ -232,15 +187,8 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QLineEdit" name="lineEdit_8"/>
-           </item>
-           <item row="0" column="2">
-            <widget class="QLabel" name="label_8">
-             <property name="text">
-              <string>Save</string>
-             </property>
-            </widget>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="h_val_1_lineEdit"/>
            </item>
            <item row="0" column="1">
             <widget class="QLabel" name="label_7">
@@ -249,38 +197,8 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
-            <widget class="QLineEdit" name="lineEdit_9"/>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLineEdit" name="lineEdit_12"/>
-           </item>
-           <item row="2" column="1">
-            <widget class="QLineEdit" name="lineEdit_13"/>
-           </item>
            <item row="1" column="2">
-            <widget class="QCheckBox" name="checkBox_5">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="3">
-            <widget class="QCheckBox" name="checkBox_6">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="2">
-            <widget class="QCheckBox" name="checkBox_7">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="3">
-            <widget class="QCheckBox" name="checkBox_8">
+            <widget class="QCheckBox" name="h_1_checkBox">
              <property name="text">
               <string/>
              </property>
@@ -320,7 +238,7 @@
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
-             <widget class="QTextEdit" name="textEdit"/>
+             <widget class="QTextEdit" name="check_body_textEdit"/>
             </item>
            </layout>
           </widget>
@@ -330,7 +248,7 @@
            </attribute>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
-             <widget class="QTextEdit" name="textEdit_2"/>
+             <widget class="QTextEdit" name="check_code_textEdit"/>
             </item>
            </layout>
           </widget>
@@ -340,7 +258,7 @@
            </attribute>
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <widget class="QTextEdit" name="textEdit_3"/>
+             <widget class="QTextEdit" name="check_message_textEdit"/>
             </item>
            </layout>
           </widget>
