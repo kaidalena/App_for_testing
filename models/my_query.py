@@ -59,7 +59,6 @@ class MyQuery():
         self.query_obj['request_body_json'] = json.dumps(json_data)
 
     def set_checks(self, area='body', json_data={}):
-        print(f'{json_data}     {type(json_data)}')
         in_area = f'in_{area}'
         self.query_obj['checks'][in_area] = json_data
 
