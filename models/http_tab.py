@@ -1,8 +1,11 @@
-from PyQt5 import QtWidgets, QtGui, QtCore
-from models.grid_layout_params import GridLayoutParams
+from PyQt5 import QtWidgets
+from models.expanderWidgetParams import RequestParams
 from models.errors import MyValueError
 from models.my_query import MyQuery
-import helper, json
+import json
+from utils import helper
+from models.expanderWidgetRequestBody import RequestBody
+from models.tab_widget_checks import TabWidgetChecks
 
 
 class HTTP_Tab(QtWidgets.QWidget):
@@ -14,71 +17,42 @@ class HTTP_Tab(QtWidgets.QWidget):
         self.horizontalLayout = QtWidgets.QHBoxLayout()
 
         # url
-        self.url_label = QtWidgets.QLabel(self)
-        self.horizontalLayout.addWidget(self.url_label)
-        self.url_lineEdit = QtWidgets.QLineEdit(self)
-        self.horizontalLayout.addWidget(self.url_lineEdit)
-        self.verticalLayout.addLayout(self.horizontalLayout)
+        self._add_url_field()
 
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
 
         # path params
-        self.path_params_groupBox = QtWidgets.QGroupBox(self)
-        self.gridLayout_path_params = GridLayoutParams(self.path_params_groupBox)
-        self.verticalLayout.addWidget(self.path_params_groupBox)
+        self.expander_path_params = RequestParams(title='Path params', parent=self)
+        self.verticalLayout.addWidget(self.expander_path_params.expander)
+        self.expander_path_params.expander.setDisabled(True)
 
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem1)
 
         # query params
-        self.query_params_groupBox = QtWidgets.QGroupBox(self)
-        self.query_params_groupBox.setObjectName("query_params_groupBox")
-        self.gridLayout_query_params = GridLayoutParams(self.query_params_groupBox)
-        self.verticalLayout.addWidget(self.query_params_groupBox)
+        self.expander_query_params = RequestParams(title='Query params', parent=self)
+        self.verticalLayout.addWidget(self.expander_query_params.expander)
 
         spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem2)
 
         # headers
-        self.headers_groupBox = QtWidgets.QGroupBox(self)
-        self.gridLayout_headers = GridLayoutParams(self.headers_groupBox)
-        self.verticalLayout.addWidget(self.headers_groupBox)
-
+        self.expander_headers = RequestParams(title='Headers', parent=self)
+        self.verticalLayout.addWidget(self.expander_headers.expander)
 
         spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem3)
 
+
         # checks
         self.checks_label = QtWidgets.QLabel(self)
         self.verticalLayout.addWidget(self.checks_label)
-        self.checks_tabWidget = QtWidgets.QTabWidget(self)
-          # body tab
-        self.checks_body_tab = QtWidgets.QWidget()
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.checks_body_tab)
-        self.check_body_textEdit = QtWidgets.QTextEdit(self.checks_body_tab)
-        self.verticalLayout_2.addWidget(self.check_body_textEdit)
-        self.checks_tabWidget.addTab(self.checks_body_tab, "")
-          # code tab
-        self.checks_code_tab = QtWidgets.QWidget()
-        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.checks_code_tab)
-        self.check_code_textEdit = QtWidgets.QTextEdit(self.checks_code_tab)
-        self.horizontalLayout_2.addWidget(self.check_code_textEdit)
-        self.checks_tabWidget.addTab(self.checks_code_tab, "")
-          # message tab
-        self.checks_message_tab = QtWidgets.QWidget()
-        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.checks_message_tab)
-        self.check_message_textEdit = QtWidgets.QTextEdit(self.checks_message_tab)
-        self.horizontalLayout_3.addWidget(self.check_message_textEdit)
-        self.checks_tabWidget.addTab(self.checks_message_tab, "")
-
-        self.check_tabs = {
-            'body': self.check_body_textEdit,
-            'code': self.check_code_textEdit,
-            'message': self.check_message_textEdit
-        }
-
+        self.checks_tabWidget = TabWidgetChecks(parent=self)
         self.verticalLayout.addWidget(self.checks_tabWidget)
+
+        # self.expander_request_body = RequestBody(parent=self)
+        # self.verticalLayout.addWidget(self.expander_request_body.expander)
 
         spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem4)
@@ -97,18 +71,33 @@ class HTTP_Tab(QtWidgets.QWidget):
         self.set_name()
 
     def set_name(self):
-        self.url_label.setText("URL:")
-        self.path_params_groupBox.setTitle("Path params")
-        self.query_params_groupBox.setTitle("Query params")
-        self.headers_groupBox.setTitle("Headers")
         self.checks_label.setText("Checks")
-        self.checks_tabWidget.setTabText(self.checks_tabWidget.indexOf(self.checks_body_tab),"Body")
-        self.checks_tabWidget.setTabText(self.checks_tabWidget.indexOf(self.checks_code_tab),"Code")
-        self.checks_tabWidget.setTabText(self.checks_tabWidget.indexOf(self.checks_message_tab),"Message")
         self.save_url_pushButton.setText("Добавить урл в сценарий")
 
     def get_method(self):
         return self.method
+
+    def _add_url_field(self):
+        self.url_label = QtWidgets.QLabel(self)
+        self.url_label.setText("URL:")
+        self.horizontalLayout.addWidget(self.url_label)
+
+        self.url_lineEdit = QtWidgets.QLineEdit(self)
+        self.horizontalLayout.addWidget(self.url_lineEdit)
+        self.verticalLayout.addLayout(self.horizontalLayout)
+
+        def validate_url():
+            try:
+                if self.url_lineEdit.text()[0] != '/':
+                    print(f"The URL must start with '/'")
+            except IndexError as er:
+                print('Empty url')
+            except Exception as ex:
+                print(ex)
+                print(f"type ex: {type(ex)} \nex: {ex}")
+
+        # self.url_lineEdit.textChanged.connect(validate_url/)
+        # self.url_lineEdit.focus.connect(validate_url)
 
     def get_url(self):
         url = self.url_lineEdit.text()
@@ -129,13 +118,13 @@ class HTTP_Tab(QtWidgets.QWidget):
         return params, use_saved_param
 
     def get_path_params(self):
-        return self.get_custom_params(self.gridLayout_path_params.get_params())
+        return self.get_custom_params(self.expander_path_params.get_params())
 
     def get_query_params(self):
-        return self.get_custom_params(self.gridLayout_query_params.get_params())
+        return self.get_custom_params(self.expander_query_params.get_params())
 
     def get_headers(self):
-        return self.get_custom_params(self.gridLayout_headers.get_params())
+        return self.get_custom_params(self.expander_headers.get_params())
 
     def add_new_url_into_case(self):
         try:
@@ -156,7 +145,7 @@ class HTTP_Tab(QtWidgets.QWidget):
             query.add_headers(headers)
             query.add_headers_saved_before(use_saved_headers)
 
-            check_data = self.get_checks_data()
+            check_data = self.checks_tabWidget.get_checks_data()
             for tab in check_data:
                 query.set_checks(area=tab, json_data=check_data[tab])
 
@@ -164,18 +153,3 @@ class HTTP_Tab(QtWidgets.QWidget):
         except Exception as ex:
             print(ex)
             helper.show_dialog(level='Error', msg=ex)
-
-    def get_checks_data(self):
-        try:
-            check_data = {
-                'body': {},
-                'code': {},
-                'message': {}
-            }
-            for tab in self.check_tabs:
-                data = self.check_tabs[tab].toPlainText()
-                if data is not None and data != '':
-                    check_data[tab] = json.loads(data)
-            return check_data
-        except Exception as ex:
-            print(f'f4rom get_checks_data {ex}')

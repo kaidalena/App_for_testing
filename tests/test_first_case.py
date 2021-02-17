@@ -5,7 +5,6 @@ from __init__ import logger
 import time
 from tests.tests_handler import compare
 from models.errors import MyValueError
-from helper import show_dialog
 
 
 def sleep(seconds):

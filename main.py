@@ -1,10 +1,8 @@
 import sys
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton
-from design import ui_main, ui_query
-from models.my_query import MyQuery
-import json
-from helper import decorator_function
+from PyQt5.QtWidgets import QApplication
+from design import ui_main
+from utils.helper import decorator_function
 from controllers.window_query import Window_query
 
 
