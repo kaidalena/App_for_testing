@@ -1,7 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from models.grid_layout_params import GridLayoutParams
 from models.http_tab import HTTP_Tab
-from models.my_expander import QExpander
 
 
 class Ui_MainWindow(object):

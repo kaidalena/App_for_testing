@@ -5,7 +5,6 @@ from models.my_expander import QExpander
 class ExpanderParams(QExpander):
     def __init__(self, title='', parent=None):
         try:
-            # print(f'Parent for grid params: {parent}')
             self.grid = QtWidgets.QGridLayout(parent)
             self.grid.setRowMinimumHeight(1, 20)
             self.parent = parent
@@ -34,7 +33,7 @@ class ExpanderParams(QExpander):
             self.grid.addWidget(self.params['keys'][0])
             self.grid.addWidget(self.params['values'][0])
             self.create_hidden_field()
-            QExpander.__init__(self, parent=parent, grid=self.grid, title=title)
+            QExpander.__init__(self, parent=parent, contentLayout=self.grid, title=title)
 
         except Exception as ex:
             print(f'From ExpanderParams __init__: {ex}')
@@ -44,13 +43,9 @@ class ExpanderParams(QExpander):
             index = len(self.params['keys'])
             self.params['keys'].append(QtWidgets.QLineEdit(self.parent))
             self.params['values'].append(QtWidgets.QLineEdit(self.parent))
-            hidden_field = QtWidgets.QLineEdit(self.parent)
-            hidden_field.setVisible(False)
-            # print(f'[add_fields_params] grid height before: {self.grid.sizeHint().height()}')
             self.grid.addWidget(self.params['keys'][index])
             self.grid.addWidget(self.params['values'][index])
-            self.grid.addWidget(hidden_field)
-            self.expander.change_anim()
+            self.create_hidden_field()
         except Exception as ex:
             print(ex)
 

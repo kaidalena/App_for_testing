@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets, QtGui, QtCore
-from models.expander_params import ExpanderParams
+from models.expanderWidgetParams import ExpanderParams
 from models.grid_layout_params import GridLayoutParams
 from models.errors import MyValueError
 from models.my_query import MyQuery

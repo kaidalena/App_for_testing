@@ -6,8 +6,6 @@ from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import *
-from models.grid_layout_params import GridLayoutParams
-# from models.expander_params import ExpanderParams
 
 
 
@@ -305,19 +303,6 @@ class Expander(QWidget):
         contentAnimation.setStartValue(0)
         contentAnimation.setEndValue( self.contentAreaSize)
 
-    def change_anim(self,  height=0):
-        collapsedHeight = self.toggleButton.sizeHint().height()
-        for i in range(self.toggleAnimation.animationCount() - 1):
-            spoilerAnimation = self.toggleAnimation.animationAt(i)
-            spoilerAnimation.setDuration(self.animationDuration)
-            spoilerAnimation.setStartValue(collapsedHeight)
-            spoilerAnimation.setEndValue(collapsedHeight + self.contentAreaSize)
-
-        contentAnimation = self.toggleAnimation.animationAt(self.toggleAnimation.animationCount() - 1)
-        contentAnimation.setDuration(self.animationDuration)
-        contentAnimation.setStartValue(0)
-        contentAnimation.setEndValue( self.contentAreaSize)
-
 # class MainWindow(QMainWindow):
 class QExpander(QWidget):
     LIGHT_BLUE = '#87daff'
@@ -327,12 +312,9 @@ class QExpander(QWidget):
     LIGHT_GREY = '#d2d5da'
     SLATE = '#525863'
 
-    # def __init__(self, grid, parent=None):
-    def __init__(self, grid, title, parent=None):
-        # super().__init__()
+    def __init__(self, contentLayout, title, parent=None):
         QWidget.__init__(self, parent=parent)
         self.parent = parent
-        # print(f'Parent: {parent}')
         self.WINDOW_STYLE = QStyleSheet(QMainWindow, background_color=self.SLATE)
         self.WINDOW_STYLE = str(self.WINDOW_STYLE)
 
@@ -371,14 +353,14 @@ class QExpander(QWidget):
         self.TEXT_EDIT_STYLE = QStyleSheet(QTextEdit, color='white', border=f'1px solid {self.LIGHT_BLUE}', background_color=self.MED_BLUE)
         self.TEXT_EDIT_STYLE = str(self.TEXT_EDIT_STYLE)
 
-        self.expander = self.initUI(grid, title)
+        self.expander = self.initUI(contentLayout, title)
         # self.expander = self.initUI()
 
-    def initUI(self, grid, title):
+    def initUI(self, contentLayout, title):
         collapsible = Expander(self.parent, title)
         collapsible.setToggleButtonStyles({'padding': '4px', 'background-color': self.LIGHT_BLUE})
-        collapsible.setContentAreaStyles({'background-color': 'yellow'})
-        collapsible.setWidget(grid)
+        collapsible.setContentAreaStyles({'background-color': 'white'})
+        collapsible.setWidget(contentLayout)
         return collapsible
 
     def _button_clicked(self, button):
