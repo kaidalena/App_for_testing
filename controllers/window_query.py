@@ -38,7 +38,6 @@ class Window_query(QtWidgets.QMainWindow, ui_query.Ui_MainWindow):
         try:
             self.querys.append(self.tabWidget.currentWidget().add_new_url_into_case())
             self.urls_listWidget.addItem(self.tabWidget.currentWidget().get_url())
-            # self.id_current_query += 1
         except Exception as ex:
             print(ex)
             helper.show_dialog(level='Error', msg=ex)

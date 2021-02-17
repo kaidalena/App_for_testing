@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from models.grid_layout_params import GridLayoutParams
 from models.http_tab import HTTP_Tab
+from models.my_expander import QExpander
 
 
 class Ui_MainWindow(object):
@@ -66,6 +67,21 @@ class Ui_MainWindow(object):
         self.horizontalLayout_7.addItem(spacerItem12)
         self.verticalLayout_3.addLayout(self.horizontalLayout_7)
         self.horizontalLayout_4.addLayout(self.verticalLayout_3)
+
+        #####################################################################
+
+        # try:
+        #     q_exp = QExpander(self)
+        #
+        #     vbox = QtWidgets.QVBoxLayout()
+        #     vbox.addWidget(q_exp.expander)
+        #     vbox.setAlignment(QtCore.Qt.AlignTop)
+        #
+        #     # self.verticalLayout_3.addItem(QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding))
+        #     self.verticalLayout_3.addLayout(vbox)
+        # except Exception as ex:
+        #     print(ex)
+
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -82,3 +98,10 @@ class Ui_MainWindow(object):
         self.label_12.setText(_translate("MainWindow", "Saved parameters"))
         self.save_case_pushButton.setText(_translate("MainWindow", "Сохранить сценарий"))
         self.start_test_case_pushButton.setText(_translate("MainWindow", "Запустить тестирование"))
+
+    def _button_clicked(self, button):
+        """
+        For the toggle behavior of a QButtonGroup to work you must
+        connect the clicked signal!
+        """
+        print('button-active', self.button_group.id(button))

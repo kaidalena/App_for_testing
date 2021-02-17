@@ -1,8 +1,10 @@
 from PyQt5 import QtWidgets, QtGui, QtCore
+from models.expander_params import ExpanderParams
 from models.grid_layout_params import GridLayoutParams
 from models.errors import MyValueError
 from models.my_query import MyQuery
 import helper, json
+from models.my_expander import QExpander
 
 
 class HTTP_Tab(QtWidgets.QWidget):
@@ -24,9 +26,29 @@ class HTTP_Tab(QtWidgets.QWidget):
         self.verticalLayout.addItem(spacerItem)
 
         # path params
-        self.path_params_groupBox = QtWidgets.QGroupBox(self)
-        self.gridLayout_path_params = GridLayoutParams(self.path_params_groupBox)
-        self.verticalLayout.addWidget(self.path_params_groupBox)
+        # self.path_params_groupBox = QtWidgets.QGroupBox(self)
+        # self.gridLayout_path_params = GridLayoutParams(self.path_params_groupBox)
+        # self.verticalLayout.addWidget(self.path_params_groupBox)
+
+        # try:
+            # grid = GridLayoutParams(self)
+            # print(f'Self; {self}')
+            # q_exp = QExpander(parent=self, grid=grid)
+
+            # vbox = QtWidgets.QVBoxLayout()
+            # vbox.addWidget(q_exp.expander)
+            # vbox.setAlignment(QtCore.Qt.AlignTop)
+
+            # self.path_params_groupBox = q_exp.params_groupBox
+            # self.gridLayout_path_params = q_exp.gridLayout_path_params
+
+            # self.verticalLayout.addWidget(q_exp.expander)
+        # except Exception as ex:
+        #     print(ex)
+
+        # self.path_params_groupBox = QtWidgets.QGroupBox(self)
+        self.gridLayout_path_params = ExpanderParams(title='Path params', parent=self)
+        self.verticalLayout.addWidget(self.gridLayout_path_params.expander)
 
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem1)
@@ -98,7 +120,7 @@ class HTTP_Tab(QtWidgets.QWidget):
 
     def set_name(self):
         self.url_label.setText("URL:")
-        self.path_params_groupBox.setTitle("Path params")
+        # self.path_params_groupBox.setTitle("Path params")
         self.query_params_groupBox.setTitle("Query params")
         self.headers_groupBox.setTitle("Headers")
         self.checks_label.setText("Checks")

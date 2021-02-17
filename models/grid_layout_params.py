@@ -51,3 +51,4 @@ class GridLayoutParams(QtWidgets.QGridLayout):
         hidden_field = QtWidgets.QLineEdit(self.parent)
         hidden_field.setVisible(False)
         self.addWidget(hidden_field)
+
